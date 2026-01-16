@@ -1,6 +1,7 @@
 import { supabase } from "./supabase";
 
-export async function setUsername(name: string) {
+// 名前をsupabaseに保存
+export async function setUsersName(name: string) {
     const { data, error } = await supabase
         .from("users")
         .insert({ name })
@@ -12,5 +13,20 @@ export async function setUsername(name: string) {
 
     return data;
 }
+
+// ルームIDを保存
+export async function setRoomsRoom(room: number) {
+    const { data, error } = await supabase
+        .from("rooms")
+        .insert({ room })
+        .select();
+
+    if (error) {
+        throw error;
+    }
+
+    return data;
+}
+
 
 

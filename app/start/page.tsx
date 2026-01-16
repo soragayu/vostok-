@@ -1,19 +1,22 @@
 'use client'
 import { useState } from "react";
-import { setUsername } from "@/app/lib/supabaseFunction";
-import { create } from "@/app/lib/cookieFunction";
+import { setUsersName } from "@/app/lib/supabaseFunction";
+import { setRoomsRoom } from "@/app/lib/supabaseFunction";
+import { createName } from "@/app/lib/cookieFunction";
+import { createRoom } from "@/app/lib/cookieFunction";
 
 export default function Start() {
 
     // 状態
-    const [page, setPage] = useState<number>(0);
     const [name, setName] = useState<string>("名前を入力してください");
     const [room, setRoom] = useState<number>(0);
 
     // 関数
     async function handleNameClick() {
-        const data = await setUsername(name);
-        await create(data[0].id);
+        const usersNameResult = await setUsersName(name);
+        await createName(usersNameResult[0].id);
+        const roomsRoomResult = await setRoomsRoom(room);
+        await createRoom(roomsRoomResult[0].room);
     }
 
     return (
