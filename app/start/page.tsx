@@ -1,6 +1,7 @@
 'use client'
 import { useState } from "react";
 import { setUsername } from "@/app/lib/supabaseFunction";
+import { create } from "@/app/lib/cookieFunction";
 
 export default function Start() {
 
@@ -11,19 +12,15 @@ export default function Start() {
 
     // 関数
     async function handleNameClick() {
-        await setUsername(name);
-        setPage(1);
+        const data = await setUsername(name);
+        await create(data[0].id);
     }
-    async function handleCreateClick() {
-        setPage(4);
-    }
-
 
     return (
         <div>
             <input value={name} onChange={(e) => setName(e.target.value)} />
             <input value={room} onChange={(e) => setRoom(Number(e.target.value))} />
-            <button>部屋作成</button>
+            <button onClick={handleNameClick}>名前決定</button>
             <button>部屋参加</button>
         </div>
     );
