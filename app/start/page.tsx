@@ -26,16 +26,6 @@ export default function Start() {
         setPage(1);
     }
 
-    // idを取得する関数
-    async function getId() {
-        const id = await getName();
-        console.log(id);
-    }
-
-    useEffect(() => {
-        getId();
-    }, [page]);
-
     console.log(room);
 
     return (
