@@ -1,7 +1,7 @@
 'use server'
 import { cookies } from 'next/headers'
 
-// cookiesに名前IDを保存
+// cookiesにIDを保存
 export async function createName(value: string) {
     const cookieStore = await cookies()
     cookieStore.set({
@@ -13,16 +13,10 @@ export async function createName(value: string) {
     })
 }
 
-// cookiesにルームIDを保存
-export async function createRoom(value: string) {
+// cookiesからIDを取得
+export async function getName() {
     const cookieStore = await cookies()
-    cookieStore.set({
-        name: 'room',
-        value: value,
-        httpOnly: true,
-        path: '/',
-        maxAge: 60 * 60 * 24
-    })
+    return cookieStore.get('name')?.value;
 }
 
 

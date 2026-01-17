@@ -1,32 +1,22 @@
 import { supabase } from "./supabase";
 
-// 名前をsupabaseに保存
-export async function setUsersName(name: string) {
+type insertUsersProps = {
+    name: string;
+    room?: number;
+}
+
+// Userstable作成
+export async function insertUsers({ name, room }: insertUsersProps) {
     const { data, error } = await supabase
         .from("users")
-        .insert({ name })
+        .insert({ name, room })
         .select();
 
     if (error) {
-        throw error;
+        throw new Error(error.message);
     }
 
     return data;
 }
-
-// ルームIDを保存
-export async function setRoomsRoom(room: number) {
-    const { data, error } = await supabase
-        .from("rooms")
-        .insert({ room })
-        .select();
-
-    if (error) {
-        throw error;
-    }
-
-    return data;
-}
-
 
 
