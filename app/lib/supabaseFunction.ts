@@ -1,15 +1,16 @@
+"use server"
 import { supabase } from "./supabase";
 
 type insertUsersProps = {
-    name: string;
+    character?: number;
     room?: number;
 }
 
 // Userstable作成
-export async function insertUsers({ name, room }: insertUsersProps) {
+export async function insertUsers({ character, room }: insertUsersProps) {
     const { data, error } = await supabase
         .from("users")
-        .insert({ name, room })
+        .insert({ character, room })
         .select();
 
     if (error) {
@@ -18,5 +19,34 @@ export async function insertUsers({ name, room }: insertUsersProps) {
 
     return data;
 }
+
+// Usersテーブルからキャラクターを取得
+export async function selectUsersCharacter(room: number) {
+    const { data, error } = await supabase
+        .from("users")
+        .select("character")
+        .eq("room", room);
+
+    if (error) {
+        throw new Error(error.message);
+    }
+
+    return data;
+}
+
+// Usersテーブルからroomを取得
+export async function selectUsersRoom(id: number) {
+    const { data, error } = await supabase
+        .from("users")
+        .select("room")
+        .eq("id", id);
+
+    if (error) {
+        throw new Error(error.message);
+    }
+
+    return data;
+}
+
 
 

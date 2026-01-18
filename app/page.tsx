@@ -1,10 +1,12 @@
-import Link from "next/link";
+import Form from "./component/Form";
 
 export default function Home() {
   return (
     <div>
       <h1>vostok</h1>
-      <Link href="/start">start</Link>
+      <p>プロローグ</p>
+      <p>キャラ紹介</p>
+      <Form />
     </div>
   );
 }
